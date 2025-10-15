@@ -1,0 +1,8 @@
+*.swo
+*.DS_Store
+*.swp
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.tmp
