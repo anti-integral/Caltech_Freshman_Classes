@@ -1,7 +1,7 @@
 CS/CNS/EE 156a
 ====
 
-Machine learning math is fun!
+Linear algebra math is fun!
 
 Course Webpage: https://www.its.caltech.edu/~zuev/teaching/2025Fall/ACM104.htm
 
