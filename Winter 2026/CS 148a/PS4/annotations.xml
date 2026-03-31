@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotations>
+  <version>1.1</version>
+  <meta>
+    <job>
+      <id>3713659</id>
+      <size>6</size>
+      <mode>annotation</mode>
+      <overlap>0</overlap>
+      <bugtracker></bugtracker>
+      <created>2026-03-10 03:38:26.541649+00:00</created>
+      <updated>2026-03-10 03:47:38.028348+00:00</updated>
+      <subset>default</subset>
+      <start_frame>0</start_frame>
+      <stop_frame>5</stop_frame>
+      <frame_filter></frame_filter>
+      <segments>
+        <segment>
+          <id>3712987</id>
+          <start>0</start>
+          <stop>5</stop>
+          <url>https://app.cvat.ai/api/jobs/3713659/dataset/export/api/jobs/3713659</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>om849</username>
+        <email>om.sanan007@gmail.com</email>
+      </owner>
+      <assignee></assignee>
+      <labels>
+        <label>
+          <name>sign</name>
+          <color>#94a42f</color>
+          <type>any</type>
+          <attributes>
+          </attributes>
+        </label>
+        <label>
+          <name>tree</name>
+          <color>#906000</color>
+          <type>any</type>
+          <attributes>
+          </attributes>
+        </label>
+      </labels>
+    </job>
+    <dumped>2026-03-10 03:48:01.206698+00:00</dumped>
+  </meta>
+  <image id="0" name="61.png" width="640" height="640">
+    <box label="sign" source="manual" occluded="0" xtl="287.27" ytl="339.73" xbr="326.79" ybr="403.80" z_order="0">
+    </box>
+    <box label="sign" source="manual" occluded="0" xtl="267.30" ytl="356.37" xbr="292.26" ybr="399.64" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="87.16" ytl="289.39" xbr="140.41" ybr="347.22" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="194.50" ytl="297.30" xbr="235.68" ybr="358.87" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="220.29" ytl="269.42" xbr="290.18" ybr="335.99" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="453.69" ytl="308.11" xbr="489.14" ybr="347.58" z_order="0">
+    </box>
+  </image>
+  <image id="1" name="720.png" width="640" height="640">
+    <box label="sign" source="manual" occluded="0" xtl="115.04" ytl="338.90" xbr="147.07" ybr="372.18" z_order="0">
+    </box>
+    <box label="sign" source="manual" occluded="0" xtl="355.08" ytl="331.00" xbr="377.13" ybr="356.79" z_order="0">
+    </box>
+  </image>
+  <image id="2" name="788.png" width="640" height="640">
+    <box label="sign" source="manual" occluded="0" xtl="354.28" ytl="338.24" xbr="384.63" ybr="400.68" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="251.95" ytl="205.56" xbr="336.94" ybr="315.69" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="437.53" ytl="139.65" xbr="540.73" ybr="341.71" z_order="0">
+    </box>
+  </image>
+  <image id="3" name="908.png" width="640" height="640">
+    <box label="sign" source="manual" occluded="0" xtl="80.24" ytl="314.82" xbr="132.28" ybr="429.29" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="101.06" ytl="286.21" xbr="204.30" ybr="331.30" z_order="0">
+    </box>
+  </image>
+  <image id="4" name="948.png" width="640" height="640">
+    <box label="sign" source="manual" occluded="0" xtl="459.39" ytl="353.59" xbr="511.92" ybr="477.40" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="0.46" ytl="0.03" xbr="289.24" ybr="421.49" z_order="0">
+    </box>
+    <box label="tree" source="manual" occluded="0" xtl="342.14" ytl="0.00" xbr="640.00" ybr="357.32" z_order="0">
+    </box>
+  </image>
+  <image id="5" name="960.png" width="640" height="640">
+    <box label="sign" source="manual" occluded="0" xtl="46.13" ytl="295.70" xbr="97.05" ybr="351.44" z_order="0">
+    </box>
+  </image>
+</annotations>

@@ -1,0 +1,11 @@
+torch
+tensorflow
+tensorflow-datasets
+numpy
+Pillow
+matplotlib
+torchvision
+pytest
+pytest-json-report
+colorama
+nltk

@@ -1,0 +1,9 @@
+graphviz
+pytest
+pytest-json-report
+setuptools
+matplotlib
+colorama
+torch
+ipykernel
+pandas

@@ -1,0 +1,16 @@
+{
+  "dataset_size": 10294,
+  "train_size": 8749,
+  "val_size": 1545,
+  "compute_resource": "Apple M3 Max",
+  "outputs": {
+    "metrics_csv": "/Users/omsanan/Downloads/Caltech_Freshman_Classes/Winter 2025/CS 148a/Project 5/bonus_outputs/compiled_metrics.csv",
+    "docx": "/Users/omsanan/Downloads/Caltech_Freshman_Classes/Winter 2025/CS 148a/Project 5/bonus_outputs/CS 148a Project 5 Writeup.docx",
+    "figures": [
+      "/Users/omsanan/Downloads/Caltech_Freshman_Classes/Winter 2025/CS 148a/Project 5/bonus_outputs/figures/plot1_log_error_vs_sample_count.png",
+      "/Users/omsanan/Downloads/Caltech_Freshman_Classes/Winter 2025/CS 148a/Project 5/bonus_outputs/figures/plot2_log_error_vs_parameter_count.png",
+      "/Users/omsanan/Downloads/Caltech_Freshman_Classes/Winter 2025/CS 148a/Project 5/bonus_outputs/figures/plot3_log_error_vs_wall_clock.png",
+      "/Users/omsanan/Downloads/Caltech_Freshman_Classes/Winter 2025/CS 148a/Project 5/bonus_outputs/figures/plotN_vit_tuning_gap_vs_val_accuracy.png"
+    ]
+  }
+}

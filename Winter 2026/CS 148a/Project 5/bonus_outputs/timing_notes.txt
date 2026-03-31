@@ -1,0 +1,1 @@
+Fusion wall-clock is approximated as CLIP downstream time plus DINO downstream time on CPU.

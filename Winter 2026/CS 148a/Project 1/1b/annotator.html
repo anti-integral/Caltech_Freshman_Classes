@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EE148 Annotator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            background: #fafafa;
+            color: #222;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top bar */
+        header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
+        }
+
+        header input[type="text"],
+        header input[type="email"] {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+            width: 160px;
+        }
+
+        header input:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        header button {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        header button:hover { background: #f0f0f0; }
+
+        .btn-load { border-color: #333; }
+        .btn-export {
+            background: #222;
+            color: #fff;
+            border-color: #222;
+        }
+        .btn-export:hover { background: #444; }
+        .btn-export:disabled {
+            background: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            font-size: 13px;
+            color: #666;
+            min-width: 90px;
+        }
+        .progress.done { color: #16a34a; font-weight: 600; }
+
+        .spacer { flex: 1; }
+
+        /* Main area */
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Left panel - thumbnails */
+        .sidebar {
+            width: 60px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .thumb {
+            width: 44px;
+            height: 32px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.1s;
+            flex-shrink: 0;
+        }
+        .thumb:hover { border-color: #666; }
+        .thumb.labeled {
+            background: #dcfce7;
+            border-color: #86efac;
+            color: #166534;
+            font-weight: 600;
+        }
+        .thumb.current {
+            border-color: #222;
+            border-width: 2px;
+        }
+
+        /* Center - image */
+        .image-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            gap: 16px;
+            background: #f5f5f5;
+        }
+
+        .image-box {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 420px;
+            max-height: 420px;
+        }
+
+        .image-box img {
+            max-width: 380px;
+            max-height: 380px;
+            image-rendering: pixelated;
+        }
+
+        .placeholder {
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        .image-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .image-nav button {
+            padding: 6px 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .image-nav button:hover { background: #f0f0f0; }
+
+        .image-id {
+            font-size: 13px;
+            color: #666;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* Digit buttons */
+        .digits {
+            display: flex;
+            gap: 6px;
+        }
+
+        .digit {
+            width: 44px;
+            height: 44px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        .digit:hover {
+            border-color: #666;
+            background: #f5f5f5;
+        }
+        .digit.selected {
+            background: #222;
+            color: #fff;
+            border-color: #222;
+        }
+
+        /* Right panel - metadata */
+        .meta-panel {
+            width: 200px;
+            background: #fff;
+            border-left: 1px solid #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .meta-section h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .score-btns {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .score-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .score-btn:hover { border-color: #666; }
+        .score-btn.selected {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+        .score-btn.quality-selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .checkbox-row input {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .status {
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+        }
+        .status.error { display: block; background: #fee2e2; color: #991b1b; }
+        .status.success { display: block; background: #dcfce7; color: #166534; }
+        .status.warning { display: block; background: #fef3c7; color: #92400e; }
+
+        .help {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.5;
+            margin-top: auto;
+        }
+
+        /* Hidden file input */
+        #folderInput { display: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="text" id="datasetHash" placeholder="Dataset hash">
+        <input type="email" id="annotatorEmail" placeholder="Your email">
+        <input type="file" id="folderInput" webkitdirectory directory multiple>
+        <button class="btn-load" onclick="document.getElementById('folderInput').click()">Load Folder</button>
+        <button onclick="clearAll()">Clear</button>
+        <span class="spacer"></span>
+        <span class="progress" id="progress">0/100</span>
+        <button class="btn-export" id="exportBtn" onclick="exportAnnotations()" disabled>Export JSON</button>
+    </header>
+
+    <main>
+        <div class="sidebar" id="thumbnails"></div>
+
+        <div class="image-area">
+            <div class="image-box" id="imageBox">
+                <span class="placeholder">Load a dataset folder to begin<br><br>Keyboard: 0-9 to label, arrows to navigate</span>
+            </div>
+
+            <div class="digits" id="digits">
+                <button class="digit" onclick="selectDigit(0)">0</button>
+                <button class="digit" onclick="selectDigit(1)">1</button>
+                <button class="digit" onclick="selectDigit(2)">2</button>
+                <button class="digit" onclick="selectDigit(3)">3</button>
+                <button class="digit" onclick="selectDigit(4)">4</button>
+                <button class="digit" onclick="selectDigit(5)">5</button>
+                <button class="digit" onclick="selectDigit(6)">6</button>
+                <button class="digit" onclick="selectDigit(7)">7</button>
+                <button class="digit" onclick="selectDigit(8)">8</button>
+                <button class="digit" onclick="selectDigit(9)">9</button>
+            </div>
+
+            <div class="image-nav">
+                <button onclick="prevImage()">&larr; Prev</button>
+                <span class="image-id" id="imageId">–</span>
+                <button onclick="nextImage()">Next &rarr;</button>
+            </div>
+        </div>
+
+        <div class="meta-panel">
+            <div class="meta-section">
+                <h3>Creativity (1-10)</h3>
+                <div class="score-btns" id="creativityBtns">
+                    <button class="score-btn" onclick="selectCreativity(1)">1</button>
+                    <button class="score-btn" onclick="selectCreativity(2)">2</button>
+                    <button class="score-btn" onclick="selectCreativity(3)">3</button>
+                    <button class="score-btn" onclick="selectCreativity(4)">4</button>
+                    <button class="score-btn" onclick="selectCreativity(5)">5</button>
+                    <button class="score-btn" onclick="selectCreativity(6)">6</button>
+                    <button class="score-btn" onclick="selectCreativity(7)">7</button>
+                    <button class="score-btn" onclick="selectCreativity(8)">8</button>
+                    <button class="score-btn" onclick="selectCreativity(9)">9</button>
+                    <button class="score-btn" onclick="selectCreativity(10)">10</button>
+                </div>
+            </div>
+
+            <div class="meta-section">
+                <h3>Data Quality (1-10)</h3>
+                <div class="score-btns" id="qualityBtns">
+                    <button class="score-btn" onclick="selectQuality(1)">1</button>
+                    <button class="score-btn" onclick="selectQuality(2)">2</button>
+                    <button class="score-btn" onclick="selectQuality(3)">3</button>
+                    <button class="score-btn" onclick="selectQuality(4)">4</button>
+                    <button class="score-btn" onclick="selectQuality(5)">5</button>
+                    <button class="score-btn" onclick="selectQuality(6)">6</button>
+                    <button class="score-btn" onclick="selectQuality(7)">7</button>
+                    <button class="score-btn" onclick="selectQuality(8)">8</button>
+                    <button class="score-btn" onclick="selectQuality(9)">9</button>
+                    <button class="score-btn" onclick="selectQuality(10)">10</button>
+                </div>
+            </div>
+
+            <div class="meta-section">
+                <div class="checkbox-row">
+                    <input type="checkbox" id="aiGenerated">
+                    <label for="aiGenerated">This dataset appears AI-generated</label>
+                </div>
+            </div>
+
+            <div class="status" id="status"></div>
+
+            <div class="help">
+                <strong>Shortcuts</strong><br>
+                0-9 &nbsp;Label digit<br>
+                &larr; &rarr; &nbsp;Navigate<br><br>
+                Auto-saves to browser storage.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let images = [];
+        let currentIndex = 0;
+        let annotations = {};
+        let creativityScore = null;
+        let qualityScore = null;
+        const STORAGE_KEY = 'ee148_annotator';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            document.addEventListener('keydown', handleKey);
+            document.getElementById('datasetHash').addEventListener('input', saveState);
+            document.getElementById('annotatorEmail').addEventListener('input', saveState);
+            document.getElementById('aiGenerated').addEventListener('change', saveState);
+        });
+
+        function handleKey(e) {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.key >= '0' && e.key <= '9') selectDigit(parseInt(e.key));
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        }
+
+        document.getElementById('folderInput').addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            const jpgs = files.filter(f =>
+                f.name.toLowerCase().endsWith('.jpg') &&
+                !f.name.startsWith('.') &&
+                f.name.startsWith('img_')
+            );
+
+            if (jpgs.length === 0) {
+                showStatus('No valid images found. Expected img_001.jpg format.', 'error');
+                return;
+            }
+
+            if (jpgs.length !== 100) {
+                showStatus(`Found ${jpgs.length} images, expected 100.`, 'warning');
+            } else {
+                showStatus(`Loaded ${jpgs.length} images.`, 'success');
+                setTimeout(() => hideStatus(), 2000);
+            }
+
+            jpgs.sort((a, b) => a.name.localeCompare(b.name));
+
+            // Clear previous state for new dataset
+            images.forEach(img => URL.revokeObjectURL(img.url));
+            images = [];
+            annotations = {};
+            creativityScore = null;
+            qualityScore = null;
+            document.querySelectorAll('#creativityBtns .score-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('#qualityBtns .score-btn').forEach(b => b.classList.remove('selected', 'quality-selected'));
+            document.getElementById('aiGenerated').checked = false;
+
+            images = jpgs.map(file => ({
+                id: file.name.replace(/\.jpe?g$/i, ''),
+                url: URL.createObjectURL(file)
+            }));
+
+            images.forEach(img => {
+                annotations[img.id] = null;
+            });
+
+            currentIndex = 0;
+            render();
+            saveState();
+        });
+
+        function render() {
+            renderImage();
+            renderThumbnails();
+            renderProgress();
+        }
+
+        function renderImage() {
+            const box = document.getElementById('imageBox');
+            const idSpan = document.getElementById('imageId');
+
+            if (images.length === 0) {
+                box.innerHTML = '<span class="placeholder">Load a dataset folder to begin<br><br>Keyboard: 0-9 to label, arrows to navigate</span>';
+                idSpan.textContent = '–';
+                return;
+            }
+
+            const img = images[currentIndex];
+            box.innerHTML = `<img src="${img.url}" alt="${img.id}">`;
+            idSpan.textContent = `${img.id} (${currentIndex + 1}/${images.length})`;
+
+            document.querySelectorAll('.digit').forEach((btn, i) => {
+                btn.classList.toggle('selected', annotations[img.id] === i);
+            });
+        }
+
+        function renderThumbnails() {
+            const container = document.getElementById('thumbnails');
+            container.innerHTML = '';
+
+            images.forEach((img, i) => {
+                const div = document.createElement('div');
+                div.className = 'thumb';
+                if (annotations[img.id] !== null) {
+                    div.classList.add('labeled');
+                    div.textContent = annotations[img.id];
+                } else {
+                    div.textContent = i + 1;
+                }
+                if (i === currentIndex) div.classList.add('current');
+                div.onclick = () => { currentIndex = i; render(); };
+                container.appendChild(div);
+            });
+        }
+
+        function renderProgress() {
+            const labeled = Object.values(annotations).filter(v => v !== null).length;
+            const total = images.length || 100;
+            const el = document.getElementById('progress');
+            el.textContent = `${labeled}/${total}`;
+            el.classList.toggle('done', labeled === total && total > 0);
+            document.getElementById('exportBtn').disabled = labeled < total || total === 0;
+        }
+
+        function selectDigit(d) {
+            if (images.length === 0) return;
+            annotations[images[currentIndex].id] = d;
+            render();
+            saveState();
+
+            // Auto-advance
+            const next = findNextUnlabeled();
+            if (next !== -1 && next !== currentIndex) {
+                setTimeout(() => { currentIndex = next; render(); }, 120);
+            }
+        }
+
+        function findNextUnlabeled() {
+            for (let i = currentIndex + 1; i < images.length; i++) {
+                if (annotations[images[i].id] === null) return i;
+            }
+            for (let i = 0; i < currentIndex; i++) {
+                if (annotations[images[i].id] === null) return i;
+            }
+            return -1;
+        }
+
+        function prevImage() {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            render();
+        }
+
+        function nextImage() {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex + 1) % images.length;
+            render();
+        }
+
+        function selectCreativity(n) {
+            creativityScore = n;
+            document.querySelectorAll('#creativityBtns .score-btn').forEach((btn, i) => {
+                btn.classList.toggle('selected', n === i + 1);
+            });
+            saveState();
+        }
+
+        function selectQuality(n) {
+            qualityScore = n;
+            document.querySelectorAll('#qualityBtns .score-btn').forEach((btn, i) => {
+                btn.classList.remove('selected');
+                btn.classList.toggle('quality-selected', n === i + 1);
+            });
+            saveState();
+        }
+
+        function clearAll() {
+            if (!confirm('Clear all annotations?')) return;
+            annotations = {};
+            creativityScore = null;
+            qualityScore = null;
+            images = [];
+            currentIndex = 0;
+            document.getElementById('datasetHash').value = '';
+            document.getElementById('annotatorEmail').value = '';
+            document.getElementById('aiGenerated').checked = false;
+            document.querySelectorAll('#creativityBtns .score-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('#qualityBtns .score-btn').forEach(b => b.classList.remove('selected', 'quality-selected'));
+            document.getElementById('thumbnails').innerHTML = '';
+            render();
+            localStorage.removeItem(STORAGE_KEY);
+        }
+
+        function exportAnnotations() {
+            const hash = document.getElementById('datasetHash').value.trim();
+            const email = document.getElementById('annotatorEmail').value.trim();
+            const ai = document.getElementById('aiGenerated').checked;
+
+            if (!hash) return showStatus('Enter dataset hash.', 'error');
+            if (!email || !email.includes('@')) return showStatus('Enter valid email.', 'error');
+            if (creativityScore === null) return showStatus('Select creativity score.', 'error');
+            if (qualityScore === null) return showStatus('Select data quality score.', 'error');
+
+            const labeled = Object.values(annotations).filter(v => v !== null).length;
+            if (labeled < images.length) return showStatus(`Label all images. ${images.length - labeled} left.`, 'error');
+
+            const name = email.split('@')[0];
+            const data = {
+                schema_version: "1.0",
+                dataset_hash: hash,
+                annotator: { email, name },
+                annotation_timestamp: new Date().toISOString(),
+                image_annotations: images.map(img => ({ image_id: img.id, label: annotations[img.id] })),
+                dataset_metadata: { creativity_score: creativityScore, quality_score: qualityScore, ai_generated_flag: ai }
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${hash}_${name}.json`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+
+            showStatus(`Exported ${hash}_${name}.json`, 'success');
+        }
+
+        function showStatus(msg, type) {
+            const el = document.getElementById('status');
+            el.textContent = msg;
+            el.className = 'status ' + type;
+        }
+
+        function hideStatus() {
+            document.getElementById('status').className = 'status';
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                datasetHash: document.getElementById('datasetHash').value,
+                email: document.getElementById('annotatorEmail').value,
+                annotations,
+                creativityScore,
+                qualityScore,
+                ai: document.getElementById('aiGenerated').checked,
+                currentIndex
+            }));
+        }
+
+        function loadState() {
+            try {
+                const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                if (!s) return;
+                if (s.datasetHash) document.getElementById('datasetHash').value = s.datasetHash;
+                if (s.email) document.getElementById('annotatorEmail').value = s.email;
+                if (s.annotations) annotations = s.annotations;
+                if (s.creativityScore) selectCreativity(s.creativityScore);
+                if (s.qualityScore) selectQuality(s.qualityScore);
+                if (s.ai) document.getElementById('aiGenerated').checked = true;
+                if (s.currentIndex !== undefined) currentIndex = s.currentIndex;
+            } catch (e) {}
+        }
+    </script>
+</body>
+</html>

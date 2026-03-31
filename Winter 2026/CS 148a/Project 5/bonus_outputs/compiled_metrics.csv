@@ -1,0 +1,8 @@
+model,family,mode,train_samples,train_acc,val_acc,params,seconds_per_image,notes,train_error,val_error
+CNN,CNN,Submitted TorchScript pipeline,8749.0,,0.871197,625610,0.001399135377141647,Accuracy sourced from Project 2 writeup PDF (best validation accuracy 87.1197%); params/timing from osanan/ee148a-project pipeline-cnn.pt.,,0.128803
+ViT,ViT,Submitted TorchScript pipeline,8749.0,0.9693,0.9625,4411722,0.004989765613572672,"Accuracy sourced from Project 3 writeup PDF (train no-aug 96.93%, val 96.25%); params/timing from osanan/ee148a-project pipeline-vit.pt. The sample-count axis still excludes the additional 60K-image MNIST pretraining stage.",0.03069999999999995,0.03749999999999998
+CLIP zero-shot,Foundation,Zero-shot,,,0.54822,427944193,0.19749545575177763,Project 4 notebook output; full 1545-image validation split.,,0.45177999999999996
+CLIP downstream,Foundation,Downstream MLP,17498.0,,0.810356,429263115,0.19705162500031292,Project 4 notebook output; CLIP encoder plus learned MLP head.,,0.18964400000000003
+DINO downstream,Foundation,Downstream MLP,17498.0,,0.680906,307133194,0.08175244793528691,Project 4 notebook output; DINOv2 encoder plus learned MLP head.,,0.319094
+CLIP + DINO fusion,Foundation,Feature fusion,17498.0,,0.828479,736258571,0.27880407293559983,Project 4 notebook output; concatenated CLIP and DINO features with fusion head.,,0.17152100000000003
+Qwen2.5-VL zero-shot,Foundation,Autoregressive VLM,,,0.316406,3754622976,,"Project 4 notebook output; accuracy reported on 256 validation images, not the full 1545.",,0.683594

@@ -1,0 +1,3 @@
+tqdm
+pyperclip
+ruff

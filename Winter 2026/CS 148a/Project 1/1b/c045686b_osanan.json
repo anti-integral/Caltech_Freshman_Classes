@@ -1,0 +1,416 @@
+{
+  "schema_version": "1.0",
+  "dataset_hash": "c045686b",
+  "annotator": {
+    "email": "osanan@caltech.edu",
+    "name": "osanan"
+  },
+  "annotation_timestamp": "2026-02-03T19:28:07.922Z",
+  "image_annotations": [
+    {
+      "image_id": "img_001",
+      "label": 0
+    },
+    {
+      "image_id": "img_002",
+      "label": 0
+    },
+    {
+      "image_id": "img_003",
+      "label": 1
+    },
+    {
+      "image_id": "img_004",
+      "label": 3
+    },
+    {
+      "image_id": "img_005",
+      "label": 5
+    },
+    {
+      "image_id": "img_006",
+      "label": 4
+    },
+    {
+      "image_id": "img_007",
+      "label": 6
+    },
+    {
+      "image_id": "img_008",
+      "label": 4
+    },
+    {
+      "image_id": "img_009",
+      "label": 4
+    },
+    {
+      "image_id": "img_010",
+      "label": 3
+    },
+    {
+      "image_id": "img_011",
+      "label": 7
+    },
+    {
+      "image_id": "img_012",
+      "label": 1
+    },
+    {
+      "image_id": "img_013",
+      "label": 2
+    },
+    {
+      "image_id": "img_014",
+      "label": 2
+    },
+    {
+      "image_id": "img_015",
+      "label": 3
+    },
+    {
+      "image_id": "img_016",
+      "label": 6
+    },
+    {
+      "image_id": "img_017",
+      "label": 6
+    },
+    {
+      "image_id": "img_018",
+      "label": 5
+    },
+    {
+      "image_id": "img_019",
+      "label": 7
+    },
+    {
+      "image_id": "img_020",
+      "label": 8
+    },
+    {
+      "image_id": "img_021",
+      "label": 9
+    },
+    {
+      "image_id": "img_022",
+      "label": 6
+    },
+    {
+      "image_id": "img_023",
+      "label": 2
+    },
+    {
+      "image_id": "img_024",
+      "label": 9
+    },
+    {
+      "image_id": "img_025",
+      "label": 1
+    },
+    {
+      "image_id": "img_026",
+      "label": 0
+    },
+    {
+      "image_id": "img_027",
+      "label": 7
+    },
+    {
+      "image_id": "img_028",
+      "label": 3
+    },
+    {
+      "image_id": "img_029",
+      "label": 9
+    },
+    {
+      "image_id": "img_030",
+      "label": 9
+    },
+    {
+      "image_id": "img_031",
+      "label": 5
+    },
+    {
+      "image_id": "img_032",
+      "label": 8
+    },
+    {
+      "image_id": "img_033",
+      "label": 4
+    },
+    {
+      "image_id": "img_034",
+      "label": 5
+    },
+    {
+      "image_id": "img_035",
+      "label": 2
+    },
+    {
+      "image_id": "img_036",
+      "label": 5
+    },
+    {
+      "image_id": "img_037",
+      "label": 9
+    },
+    {
+      "image_id": "img_038",
+      "label": 4
+    },
+    {
+      "image_id": "img_039",
+      "label": 4
+    },
+    {
+      "image_id": "img_040",
+      "label": 3
+    },
+    {
+      "image_id": "img_041",
+      "label": 1
+    },
+    {
+      "image_id": "img_042",
+      "label": 7
+    },
+    {
+      "image_id": "img_043",
+      "label": 5
+    },
+    {
+      "image_id": "img_044",
+      "label": 8
+    },
+    {
+      "image_id": "img_045",
+      "label": 9
+    },
+    {
+      "image_id": "img_046",
+      "label": 9
+    },
+    {
+      "image_id": "img_047",
+      "label": 3
+    },
+    {
+      "image_id": "img_048",
+      "label": 8
+    },
+    {
+      "image_id": "img_049",
+      "label": 6
+    },
+    {
+      "image_id": "img_050",
+      "label": 0
+    },
+    {
+      "image_id": "img_051",
+      "label": 7
+    },
+    {
+      "image_id": "img_052",
+      "label": 3
+    },
+    {
+      "image_id": "img_053",
+      "label": 4
+    },
+    {
+      "image_id": "img_054",
+      "label": 4
+    },
+    {
+      "image_id": "img_055",
+      "label": 7
+    },
+    {
+      "image_id": "img_056",
+      "label": 1
+    },
+    {
+      "image_id": "img_057",
+      "label": 1
+    },
+    {
+      "image_id": "img_058",
+      "label": 8
+    },
+    {
+      "image_id": "img_059",
+      "label": 2
+    },
+    {
+      "image_id": "img_060",
+      "label": 8
+    },
+    {
+      "image_id": "img_061",
+      "label": 5
+    },
+    {
+      "image_id": "img_062",
+      "label": 0
+    },
+    {
+      "image_id": "img_063",
+      "label": 0
+    },
+    {
+      "image_id": "img_064",
+      "label": 8
+    },
+    {
+      "image_id": "img_065",
+      "label": 7
+    },
+    {
+      "image_id": "img_066",
+      "label": 6
+    },
+    {
+      "image_id": "img_067",
+      "label": 1
+    },
+    {
+      "image_id": "img_068",
+      "label": 5
+    },
+    {
+      "image_id": "img_069",
+      "label": 7
+    },
+    {
+      "image_id": "img_070",
+      "label": 0
+    },
+    {
+      "image_id": "img_071",
+      "label": 4
+    },
+    {
+      "image_id": "img_072",
+      "label": 4
+    },
+    {
+      "image_id": "img_073",
+      "label": 0
+    },
+    {
+      "image_id": "img_074",
+      "label": 2
+    },
+    {
+      "image_id": "img_075",
+      "label": 0
+    },
+    {
+      "image_id": "img_076",
+      "label": 3
+    },
+    {
+      "image_id": "img_077",
+      "label": 0
+    },
+    {
+      "image_id": "img_078",
+      "label": 5
+    },
+    {
+      "image_id": "img_079",
+      "label": 8
+    },
+    {
+      "image_id": "img_080",
+      "label": 9
+    },
+    {
+      "image_id": "img_081",
+      "label": 5
+    },
+    {
+      "image_id": "img_082",
+      "label": 7
+    },
+    {
+      "image_id": "img_083",
+      "label": 0
+    },
+    {
+      "image_id": "img_084",
+      "label": 7
+    },
+    {
+      "image_id": "img_085",
+      "label": 9
+    },
+    {
+      "image_id": "img_086",
+      "label": 5
+    },
+    {
+      "image_id": "img_087",
+      "label": 8
+    },
+    {
+      "image_id": "img_088",
+      "label": 6
+    },
+    {
+      "image_id": "img_089",
+      "label": 2
+    },
+    {
+      "image_id": "img_090",
+      "label": 9
+    },
+    {
+      "image_id": "img_091",
+      "label": 8
+    },
+    {
+      "image_id": "img_092",
+      "label": 2
+    },
+    {
+      "image_id": "img_093",
+      "label": 1
+    },
+    {
+      "image_id": "img_094",
+      "label": 6
+    },
+    {
+      "image_id": "img_095",
+      "label": 2
+    },
+    {
+      "image_id": "img_096",
+      "label": 4
+    },
+    {
+      "image_id": "img_097",
+      "label": 6
+    },
+    {
+      "image_id": "img_098",
+      "label": 3
+    },
+    {
+      "image_id": "img_099",
+      "label": 1
+    },
+    {
+      "image_id": "img_100",
+      "label": 2
+    }
+  ],
+  "dataset_metadata": {
+    "creativity_score": 9,
+    "quality_score": 7,
+    "ai_generated_flag": false
+  }
+}
